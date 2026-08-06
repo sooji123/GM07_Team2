@@ -19,6 +19,7 @@ public class CustomerExit : CustomerStateBase
             return;
         }
         // 출구로 나가면 결제
+        _customer.PayMoney();
 
         // 반환
         _customer.Release();

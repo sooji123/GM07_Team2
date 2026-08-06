@@ -14,20 +14,19 @@ public class CustomerSeat : CustomerStateBase
     }
     public override void Update()
     {
-        // 주문 접수 전 이면 종료
-        if (!_customer.IsOrder)
-        {
-            _customer.Ordering(); // test
-            return;
-        }
-
-        if (!_customer.IsOrder)
-        {
-            _customer.Watting(); // test
-            return;
-        }
-
         // 음식 받으면 식사 상태로 변경
+        if (_customer.IsReceived)
+        {
+            _customer.StateMachine.TransitionTo(_customer.StateMachine.EatState);
+            return;
+        }
+
+        // test
+        if (!_customer.IsReceiveFood)
+        {
+            _customer.Watting();
+            return;
+        }
         _customer.StateMachine.TransitionTo(_customer.StateMachine.EatState);
     }
     public override void Exit()

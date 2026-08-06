@@ -1,4 +1,7 @@
-﻿using GM07.Map;
+﻿using System.Collections.Generic;
+
+using GM07.Map;
+using GM07.Order;
 
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,19 +17,19 @@ public class Customer : MonoBehaviour
     private NavMeshAgent _agent;
 
     private float _eatTimer = 0.0f;
+    private TableManager _tableManager;
+    private Recipe _recipe;
 
     public CustomerStateMachine StateMachine { get; private set; }
     public Table Table { get; private set; }
     public Seat Seat { get; private set; }
     public Vector3 StartPos { get; private set; }
     public bool IsAte => _eatTimer >= _data.EatTime;
+    public bool IsReceived { get; private set; }
 
     #region Test Fields
-    private float _orderTimer = 0.0f; // test
-    private float _orderTime = 2.0f; // test
     private float _receiveTimer = 0.0f; // test
     private float _receiveTime = 2.0f; // test
-    public bool IsOrder => _orderTimer >= _orderTime; // test
     public bool IsReceiveFood => _receiveTimer >= _receiveTime; // test
     #endregion
 
@@ -36,10 +39,14 @@ public class Customer : MonoBehaviour
     }
 
     // 스폰 시 호출되는 초기화 메서드
-    public void Init(Table table, Seat seat)
+    public void Init(TableManager tableManager, Table table, Seat seat)
     {
+        _tableManager = tableManager;
         Table = table;
         Seat = seat;
+
+        _eatTimer = 0.0f;
+        IsReceived = false;
 
         if(_agent == null)
         {
@@ -87,29 +94,39 @@ public class Customer : MonoBehaviour
     // 메뉴 주문하는 메서드
     public void OrderMenu()
     {
-        // 메뉴 선택 후 반환 로직
-        //Table.GetComponent<TableOrderController>().RequestOrder(Seat);
+        if (RecipeManager.Instance != null && Table.TryGetComponent(out TableOrderController order))
+        {
+            List<Recipe> recipes = new List<Recipe>();
+            for (int i = 0; i < RecipeManager.Instance.Count; i++)
+            {
+                if(RecipeManager.Instance.TryGetRecipeIndex(i, out Recipe recipe) && recipe.Unlocked)
+                {
+                    recipes.Add(recipe);
+                }
+            }
 
-        _orderTimer = 0.0f; // test
+            // 해금된 레시피 랜덤으로 선택
+            Recipe selectRecipe = recipes[Random.Range(0, recipes.Count)];
+            // 주문 요청 (레시피 제공 예정)
+            order.RequestOrder(Seat);
+        }
+
         _receiveTimer = 0.0f; // test
-    }
-    public void Ordering() // test
-    {
-        _orderTimer += Time.deltaTime;
     }
     public void Watting() // test
     {
         _receiveTimer += Time.deltaTime;
     }
-    public void Received()
+    public void Receive()
     {
-        // 요리 받기 로직
-        
+        IsReceived = true;
     }
-
-    public void ResetTimer()
+    public void PayMoney()
     {
-        _eatTimer = 0.0f;
+        if (CurrencyManager.Instance != null && _recipe != null)
+        {
+            CurrencyManager.Instance.AddMoney(_recipe.Data.Price, ECurrencyTransactionType.Sale);
+        }
     }
 
     public void Eating()
@@ -119,13 +136,12 @@ public class Customer : MonoBehaviour
 
     public void Release()
     {
-        // 결제 로직 추가 예정
-        
         // 자리 반환
-        if (Table != null && Seat != null)
+        if (_tableManager != null && Table != null && Seat != null)
         {
-            Table.ReleaseSeat(Seat);
+            _tableManager.ReleaseSeat(Table, Seat);
         }
+        _tableManager = null;
         Table = null;
         Seat = null;
         

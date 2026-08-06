@@ -1,9 +1,12 @@
+using GM07.Map;
 using System;
 using System.Collections;
 using UnityEngine;
 
 public class GameFlowManager : MonoBehaviour
 {
+    [SerializeField]
+    private TableManager _tableManager;
     [SerializeField]
     private float _openDuration;
 
@@ -27,9 +30,18 @@ public class GameFlowManager : MonoBehaviour
         OnDayChanged?.Invoke(CurrentDay);
         OnRemainingTimeChanged?.Invoke(RemainingTime);
         OnGameStateChanged?.Invoke(GameState);
+
+        if(_tableManager != null)
+        {
+            _tableManager.OnAllTablesEmpty += OnAllTablesEmpty;
+        }
     }
     private void OnDisable()
     {
+        if(_tableManager != null)
+        {
+            _tableManager.OnAllTablesEmpty -= OnAllTablesEmpty;
+        }
         StopOpenCo();
     }
     private void StartOpen()
@@ -60,7 +72,20 @@ public class GameFlowManager : MonoBehaviour
         _openCoroutine = null;
 
         SetGameState(EGameState.ClosingWait);
-        //남은 손님 기다리기
+        OnAllTablesEmpty();
+    }
+
+    private void OnAllTablesEmpty()
+    {
+        if (GameState != EGameState.ClosingWait)
+        {
+            return;
+        }
+        if (!_tableManager.IsAllTablesEmpty)
+        {
+            return;
+        }
+
         SetGameState(EGameState.Close);
     }
 

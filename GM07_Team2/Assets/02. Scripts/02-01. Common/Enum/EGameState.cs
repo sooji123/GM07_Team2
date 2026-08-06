@@ -5,3 +5,9 @@ public enum EGameState
     ClosingWait,
     Close,
 }
+
+public enum ESceneName
+{
+    Title,
+    Maptest,
+}

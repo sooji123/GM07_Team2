@@ -8,9 +8,6 @@ public class CustomerEat : CustomerStateBase
     {
         // 식사 애니메이션
         _customer.SetColor(Color.green);
-
-        // 식사 시간 타이머 세팅
-        _customer.ResetTimer();
     }
     public override void Update()
     {

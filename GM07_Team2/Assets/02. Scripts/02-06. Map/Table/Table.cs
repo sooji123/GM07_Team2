@@ -28,6 +28,7 @@ namespace GM07.Map
             }
         }
         public bool IsFull => RemainingSeatsCount == 0;
+        public bool IsEmpty => RemainingSeatsCount == _seats.Count;
 
         public void Initialize(int id)
         {

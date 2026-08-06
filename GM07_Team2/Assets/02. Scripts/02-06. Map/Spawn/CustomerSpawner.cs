@@ -14,7 +14,7 @@ namespace GM07.Map
         [SerializeField]
         private Transform _spawnPoint;
         [SerializeField]
-        private CustomerSpawnSettings _spawnSettings;
+        private CustomerSpawnSettingData _spawnSettings;
 
         private Coroutine _spawnCoroutine;
 
@@ -86,7 +86,6 @@ namespace GM07.Map
                 }
 
                 yield return new WaitForSeconds(spawnInterval);
-                Debug.Log($"{nameof(CustomerSpawner)}: Spawn Interval: {spawnInterval}");
 
                 if (_gameFlowManager.GameState != EGameState.Open)
                 {
@@ -107,7 +106,7 @@ namespace GM07.Map
             GameObject customer = Instantiate(_customerPrefab, _spawnPoint.position, _spawnPoint.rotation);
             if(customer.TryGetComponent<Customer>(out Customer customerComponent))
             {
-                customerComponent.Init(table, seat);
+                customerComponent.Init(_tableManager, table, seat);
                 return true;
             }
             else

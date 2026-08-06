@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,23 @@ namespace GM07.Map
 
         private readonly List<Table> _tableList = new();
         private int _nextTableId = 1;
+
+        public bool IsAllTablesEmpty
+        {
+            get
+            {
+                foreach (Table table in _tableList)
+                {
+                    if (!table.IsEmpty)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        public Action OnAllTablesEmpty;
 
         private void Start()
         {
@@ -81,7 +99,7 @@ namespace GM07.Map
                 return false;
             }
 
-            int randomIndex = Random.Range(0, candidateTableList.Count);
+            int randomIndex = UnityEngine.Random.Range(0, candidateTableList.Count);
 
             selectedTable = candidateTableList[randomIndex];
 
@@ -102,11 +120,16 @@ namespace GM07.Map
                 return;
             }
             table.ReleaseSeat(seat);
+
+            if(IsAllTablesEmpty)
+            {
+                OnAllTablesEmpty?.Invoke();
+            }
         }
 
         public bool RemoveTable(Table table)
         {
-            if (table == null || table.IsFull)
+            if (table == null || !table.IsFull)
             {
                 return false;
             }

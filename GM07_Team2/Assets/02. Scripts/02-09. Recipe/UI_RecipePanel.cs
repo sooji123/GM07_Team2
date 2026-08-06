@@ -27,12 +27,12 @@ public class UI_RecipePanel : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            if (!RecipeManager.Instance.TryGetRecipeIndex(i, out RecipeData data))
+            if (!RecipeManager.Instance.TryGetRecipeIndex(i, out Recipe recipe))
             {
                 continue;
             }
             UI_RecipeView view = Instantiate(_recipeViewPrefab, transform);
-            view.Bind(data);
+            view.Bind(recipe);
             view.Draw();
             _recipeViews.Add(view);
         }

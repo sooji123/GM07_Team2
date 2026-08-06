@@ -1,12 +1,11 @@
-﻿using System;
-
-using UnityEngine;
-using UnityEngine.UI;
-
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "RecipeData", menuName = "Recipe/RecipeData")]
 public class RecipeData : ScriptableObject
 {
+    [field: SerializeField]
+    public int RecipeId { get; private set; }
+
     [field: SerializeField]
     public Sprite Icon { get; private set; }
 
@@ -20,16 +19,5 @@ public class RecipeData : ScriptableObject
     public int Price { get; private set; } = 0; // 판매 가격
 
     [field: SerializeField]
-    public ERecipeGrade Grade { get; private set; } = ERecipeGrade.Normal; // 레시피 등급
-
-    [field: SerializeField]
-    public bool Unlocked { get; private set; } = false; // 해금 여부
-
-    [field: SerializeField]
-    public float CookingTime { get; private set; } = 1.0f; // 요리 하는 데 걸리는 시간
-    public void Unlock()
-    {
-        Grade = (ERecipeGrade)UnityEngine.Random.Range(0, (int)ERecipeGrade.Size);
-        Unlocked = true;
-    }
+    public float CookingTime { get; private set; } = 1.0f; // 조리 시간
 }

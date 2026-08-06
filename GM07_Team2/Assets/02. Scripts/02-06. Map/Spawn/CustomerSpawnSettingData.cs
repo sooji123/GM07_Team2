@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CustomerSpawnSettings", menuName = "ScriptableObjects/CustomerSpawnSettings")]
-public class CustomerSpawnSettings : ScriptableObject
+public class CustomerSpawnSettingData : ScriptableObject
 {
     [SerializeField]
     private List<CustomerSpawnPeriod> spawnPeriodList;

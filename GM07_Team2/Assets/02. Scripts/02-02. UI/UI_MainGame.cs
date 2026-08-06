@@ -14,11 +14,15 @@ public class UI_MainGame : MonoBehaviour
     [SerializeField]
     private TMP_Text _gameStateText;
     [SerializeField]
+    private TMP_Text _moneyText;
+    [SerializeField]
     private Button _openButton;
     [SerializeField]
     private Button _nextdayButton;
+    [SerializeField]
+    private GameObject _closePanel;
 
-    private void OnEnable()
+    private void Start()
     {
         if(_gameFlowManager == null)
         {
@@ -35,7 +39,7 @@ public class UI_MainGame : MonoBehaviour
         _gameFlowManager.OnGameStateChanged += RefreshGameState;
         _gameFlowManager.OnRemainingTimeChanged += RefreshRemainingTime;
         _gameFlowManager.OnDayChanged += RefreshDay;
-
+        CurrencyManager.Instance.OnMoneyChanged += RefreshMoney;
     }
     private void OnDisable()
     {
@@ -54,6 +58,7 @@ public class UI_MainGame : MonoBehaviour
         _gameFlowManager.OnGameStateChanged -= RefreshGameState;
         _gameFlowManager.OnRemainingTimeChanged -= RefreshRemainingTime;
         _gameFlowManager.OnDayChanged -= RefreshDay;
+        CurrencyManager.Instance.OnMoneyChanged -= RefreshMoney;
     }
 
     private void RefreshGameState(EGameState gameState)
@@ -88,7 +93,14 @@ public class UI_MainGame : MonoBehaviour
         }
         _dayText.text = $"Day - {day}";
     }
-
+    private void RefreshMoney(int money)
+    {
+        if(_moneyText == null)
+        {
+            return;
+        }
+        _moneyText.text = $"{money:N0}";
+    }
     private void RefreshButton()
     {
         bool isPreparing = _gameFlowManager.GameState == EGameState.Preparing;
@@ -98,9 +110,9 @@ public class UI_MainGame : MonoBehaviour
         {
             _openButton.gameObject.SetActive(isPreparing);
         }
-        if(_nextdayButton != null)
+        if(_closePanel != null)
         {
-            _nextdayButton.gameObject.SetActive(isClosed);
+            _closePanel.SetActive(isClosed);
         }
     }
     private string GetGameStateText(EGameState gameState)
