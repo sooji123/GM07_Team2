@@ -107,6 +107,7 @@ public class Customer : MonoBehaviour
 
             // 해금된 레시피 랜덤으로 선택
             Recipe selectRecipe = recipes[Random.Range(0, recipes.Count)];
+            _recipe = selectRecipe;
             // 주문 요청 (레시피 제공 예정)
             order.RequestOrder(Seat);
         }
