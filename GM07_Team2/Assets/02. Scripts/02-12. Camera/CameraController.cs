@@ -95,7 +95,7 @@ public class CameraController : MonoBehaviour
             (
                 Mathf.Clamp(_camera.transform.position.x, _min.x - _borderOffset, _max.x - _borderOffset),
                 _camera.transform.position.y,
-                Mathf.Clamp(_camera.transform.position.z, _min.z - _borderOffset, _max.z - _borderOffset)
+                Mathf.Clamp(_camera.transform.position.z, _min.z - _borderOffset, (_max.z * 2.0f) - _borderOffset)
             );
 
         // 다음 이동을 위해 현재 위치 저장

@@ -595,7 +595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   _camera: {fileID: 1868026331}
   _borderOffset: 17
-  _sensitivity: 1
+  _sensitivity: 3
   _zoomScale: 0.5
   _maxZoom: 10
   _minZoom: 4
@@ -736,6 +736,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 521162764917734049, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1044403121146312151, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: _mosaicImage
       value: 
@@ -832,9 +836,17 @@ PrefabInstance:
       propertyPath: _restaurant
       value: 
       objectReference: {fileID: 1270792348}
+    - target: {fileID: 3387946175824602061, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3895450458366569328, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: m_Name
       value: MainCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067348103352288490, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2000
       objectReference: {fileID: 0}
     - target: {fileID: 5698253475652346408, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: _settlementManager
@@ -859,31 +871,35 @@ PrefabInstance:
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[0]'
       value: 
-      objectReference: {fileID: 294330844}
+      objectReference: {fileID: 892001949}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[1]'
       value: 
-      objectReference: {fileID: 892001949}
+      objectReference: {fileID: 192075100}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[2]'
       value: 
-      objectReference: {fileID: 192075100}
+      objectReference: {fileID: 1894985543}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[3]'
       value: 
-      objectReference: {fileID: 1894985543}
+      objectReference: {fileID: 99171307}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[4]'
       value: 
-      objectReference: {fileID: 99171307}
+      objectReference: {fileID: 154265519}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[5]'
       value: 
-      objectReference: {fileID: 154265519}
+      objectReference: {fileID: 84961550}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[6]'
       value: 
-      objectReference: {fileID: 84961550}
+      objectReference: {fileID: 294330844}
+    - target: {fileID: 8369114604117520329, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

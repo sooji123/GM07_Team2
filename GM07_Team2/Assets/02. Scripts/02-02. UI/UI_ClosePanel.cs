@@ -74,4 +74,8 @@ public class UI_ClosePanel : MonoBehaviour
         _settlementEffect?.SetTotalRevenu(data.NetProfit);
         _settlementEffect?.Play();
     }
+    public bool TrySkipSettlementEffect()
+    {
+        return _settlementEffect != null && _settlementEffect.TrySkipToHighlight();
+    }
 }

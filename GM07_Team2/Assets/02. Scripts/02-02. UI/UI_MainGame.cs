@@ -331,6 +331,10 @@ public class UI_MainGame : MonoBehaviour
         {
             return;
         }
+        if (_closePanel.TryGetComponent(out UI_ClosePanel closePanel) && closePanel.TrySkipSettlementEffect())
+        {
+            return;
+        }
         _isClosing = true;        
         _nextdayButton.interactable= false;
         Tween tween = _preparingEffect?.Play();
